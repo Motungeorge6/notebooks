@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from "../../assets/logo.svg"
 import Note from "../../assets/Rectangle 1.svg"
 import { FcGoogle } from "react-icons/fc";
+import Button from '../reusables/buttons';
+import InputField from '../reusables/inputs/inputField';
 
 
 const SignUpPage = () => {
+
+  const [fullName,setFullName] = useState('');
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+
+  const handleFullNameChange = (e)=>{
+    setFullName(e.target.value);
+  }
+
+  const handleEmailChange =(e)=>{
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange =(e)=>{
+    setPassword(e.target.value)
+  }
   return (
     <div className="mx-5">
       <header className="bg-white pl-3 pt-2">
@@ -29,45 +47,40 @@ const SignUpPage = () => {
          </div>
         </div>
         <form className="items-center   w-full  justify-center m-5">
-          <div className="mb-4">
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              placeholder='Full Name'
-              className="border border-gray-300 rounded mb-2 w-full  h-[55px] p-5"
-              />
-          </div>
+        <InputField
+        type="text"
+        id="fullName"
+        name="fullName"
+        placeholder="Full Name"
+        value={fullName}
+        onChange={handleFullNameChange}
+      />
 
-          <div className="mb-4">
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder='Email'
-              className="border border-gray-300 rounded mb-2 w-full  h-[55px] p-5"
-              />
-          </div>
+      <InputField
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email"
+        value={email}
+        onChange={handleEmailChange}
+      />
 
-          <div className="mb-4">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder='Password'
-              className="border border-gray-300 rounded mb-2 w-full h-[55px] p-5"
-              />
-          </div>
+      <InputField
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+        value={password}
+        onChange={handlePasswordChange}
+      />
           <div className='mb-4 flex justify-end'>
             <a href='/forgot-password' className='text-xs text-blue-500'>
               Forgot Password?
             </a>
           </div>
-          <button className=" text-white bg-[#4A4AFA] h-[55px] w-full rounded-right-md ">
-            Sign Up
-          </button>
-          <p className='mt-4 text-gray-600'>
-            Already have an account? <a href='/login'>Login here</a>
+          <Button>Sign Up</Button>
+          <p className='mt-4 text-[#636364] font-medium text-sm'>
+            Already have an account? <a href='/login'className='text-[#4A4AFA]'>Login here</a>
 
           </p>
         </form>
