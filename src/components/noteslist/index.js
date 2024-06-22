@@ -11,7 +11,7 @@ function NotesList() {
   }, []);
 
   const handleNewNote = () => {
-    navigate('/new-notes'); // Update the path to match the new notes path
+    navigate('/note'); // Update the path to match the new notes path
   };
 
   const handleNoteClick = (index) => {
