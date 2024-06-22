@@ -17,7 +17,7 @@ const HomePage = () => {
         <div>
         <h2 className='font-semibold text-lg pt-3'>You have nothing here</h2>
         <div className='flex rounded-lg bg-[#4a4afa] mt-3 '>
-        <Link to= "" className='pl-10 font-normal text-sm '>Start new note</Link>
+        <Link to= "/note" className='pl-10 font-normal text-sm mt-2 '>Start new note</Link>
         <IoMdAddCircleOutline className='my-3 ml-2' />
 
         {/* <img src={Plus} alt='plus' className=''/> */}

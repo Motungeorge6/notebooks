@@ -43,20 +43,25 @@ function NewNotes() {
   };
 
   const handleSave = () => {
+    const newNote = { topic, note, imageUrl };
+    const existingNotes = JSON.parse(localStorage.getItem('notes')) || [];
+    existingNotes.push(newNote);
+    localStorage.setItem('notes', JSON.stringify(existingNotes));
     setShowModal(true);
   };
+  
 
   const closeModal = () => {
     setShowModal(false);
   };
 
   const handleGoHome = () => {
-    navigate("/note"); // Redirect to the new note page using useNavigate
+    navigate("/notes"); // Redirect to the notes listing page
   };
+  
 
   const handleWriteNewNote = () => {
     window.location.reload();
-     // Redirect to the new note page using useNavigate
   };
 
   return (

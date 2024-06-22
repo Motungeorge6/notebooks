@@ -4,11 +4,13 @@ import Note from "../../assets/Rectangle 1.svg"
 import { FcGoogle } from "react-icons/fc";
 import Button from '../reusables/buttons';
 import InputField from '../reusables/inputs/inputField';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginPage = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('')
+    const navigate = useNavigate();
 
     const handleEmailChange =(e)=>{
         setEmail(e.target.value);
@@ -16,6 +18,10 @@ const LoginPage = () => {
 
     const handlePasswordChange=(e)=>{
         setPassword(e.target.value)
+    }
+    const handleLogin=(e)=>{
+      e.preventDefault();
+      navigate('/home')
     }
   return (
     <div className="mx-5">
@@ -39,7 +45,7 @@ const LoginPage = () => {
           <h3 className='font-normal text-xs'>or</h3>
          </div>
         </div>
-        <form className="items-center   w-full  justify-center m-5">
+        <form className="items-center   w-full  justify-center m-5"onSubmit={handleLogin}>
             <InputField
             type="email"
             id="email"
