@@ -9,11 +9,13 @@ import LogoutModal from "../auth/logoutmodal";
 import Profile from "../../assets/profile.svg";
 
 const SideBar = () => {
+  const [showSidebar, setShowSidebar] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setShowModal(true);
+    setShowSidebar(false); // Close sidebar when logout modal opens
   };
 
   const handleCancelLogout = () => {
@@ -22,49 +24,75 @@ const SideBar = () => {
 
   const handleConfirmLogout = () => {
     setShowModal(false);
+    // Perform logout logic here (e.g., clear session)
+    navigate("/login"); // Redirect to login page after logout
   };
 
-  const handleAllNotesClick = () => {
-    navigate("/notes"); // Navigate to the notes listing page
+  const handleItemClick = (path) => {
+    navigate(path); // Navigate to the specified path
+    setShowSidebar(false); // Close sidebar after navigation
+  };
+
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
   };
 
   return (
-    <div className="w-1/6 bg-gray-300 text-[#000000] p-4">
+    <div className="md:flex md:flex-col md:w-1/6 bg-gray-300 text-[#000000] p-4 relative">
       <div className="text-2xl font-bold mb-4">
-        <img src={Logo} alt='logo'/>
+        <img src={Logo} alt="Logo" />
       </div>
-      <div className='p-5'>
+      <div className={`${showSidebar ? 'block' : 'hidden'} md:block p-5`}>
         <ul>
-          <li className="py-2 flex cursor-pointer" onClick={handleAllNotesClick}>
-            <GiNotebook/>
-            <p className='ml-2 font-medium text-sm'>All note</p> 
+          <li className="py-2 flex cursor-pointer" onClick={() => handleItemClick("/notes")}>
+            <GiNotebook />
+            <p className="ml-2 font-medium text-sm">All note</p>
           </li>
-          <li className="py-2 flex">
-            <MdTaskAlt/>
-            <p className='ml-2 font-medium text-sm'>Tasks</p>
+          <li className="py-2 flex cursor-pointer" onClick={() => handleItemClick("/tasks")}>
+            <MdTaskAlt />
+            <p className="ml-2 font-medium text-sm">Tasks</p>
           </li>
-          <li className="py-2 flex">
-            <PiBellRingingFill/>
-            <p className='ml-2 font-medium text-sm'>Reminder</p>
+          <li className="py-2 flex cursor-pointer" onClick={() => handleItemClick("/reminders")}>
+            <PiBellRingingFill />
+            <p className="ml-2 font-medium text-sm">Reminder</p>
           </li>
-          <li className="py-2 flex">
-            <MdFavorite/>
-            <p className='ml-2 font-medium text-sm'>Favourite</p>
+          <li className="py-2 flex cursor-pointer" onClick={() => handleItemClick("/favorites")}>
+            <MdFavorite />
+            <p className="ml-2 font-medium text-sm">Favourite</p>
+          </li>
+          <li className="py-2 flex cursor-pointer" onClick={handleLogout}>
+            <img src={Profile} alt="Profile" className="h-6 w-6 rounded-full" />
+            <p className="ml-2 font-medium text-sm">Logout</p>
           </li>
         </ul>
       </div>
-      {showModal && (
-        <LogoutModal onCancel={handleCancelLogout} onConfirm={handleConfirmLogout} />
-      )}
-      <div className="absolute bottom-4 left-0 right-0 p-5">
-        <div className="text-xl font-bold flex text-center">
-          <img src={Profile} alt='profile'/>
-          <h2 className='ml-2 font-medium text-sm'>Kehinde Adepoju</h2>
-        </div>
-        <button onClick={handleLogout} className="text-[#DE0202] font-semibold text-sm mb-[2%] ml-10 px-4">
-          Logout
-        </button>
+      <div className="absolute md:hidden top-4 right-4 cursor-pointer">
+        <svg
+          className="h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          onClick={toggleSidebar}
+        >
+          {showSidebar ? (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          ) : (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          )}
+        </svg>
       </div>
+      {showModal && <LogoutModal onCancel={handleCancelLogout} onConfirm={handleConfirmLogout} />}
     </div>
   );
 };
